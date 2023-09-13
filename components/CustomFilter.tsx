@@ -14,7 +14,7 @@ export default function CustomFilter({ title, options }: CustomFilterProps) {
   const handleUpdateParams = (e: { title: string; value: string }) => {
     const newPathName = updateSearchParams(title, e.value.toLocaleLowerCase());
 
-    router.push(newPathName);
+    router.push(newPathName, { scroll: false });
   };
 
   return (
