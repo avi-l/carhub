@@ -1,29 +1,34 @@
 import { CarProps, FilterProps } from "@/types";
 import axios from "axios";
 
-export async function fetchCars(filters: FilterProps) {
-  const { manufacturer, year, model, limit, fuel } = filters;
+export const fetchCars = async (filters: FilterProps) => {
+  const { manufacturer, year, model, limit, fuel } = filters || {};
 
-  // Set the required headers for the API request
-  const headers: HeadersInit = {
-    "X-RapidAPI-Key": "e930537c07msh45d2189ae51ef31p167e1ajsn4705eea617cf",
-    "X-RapidAPI-Host": "cars-by-api-ninjas.p.rapidapi.com",
+  const options = {
+    method: "GET",
+    url: "https://cars-by-api-ninjas.p.rapidapi.com/v1/cars",
+    params: {
+      model,
+      make: manufacturer,
+      year: year || "",
+      fuel_type: fuel,
+      limit,
+    },
+    headers: {
+      "X-RapidAPI-Key": "e930537c07msh45d2189ae51ef31p167e1ajsn4705eea617cf",
+      "X-RapidAPI-Host": "cars-by-api-ninjas.p.rapidapi.com",
+    },
   };
 
-  // Set the required headers for the API request
-  const response = await fetch(
-    `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
-    {
-      headers: headers,
-    }
-  );
-
-  // Parse the response as JSON
-
-  const result = await response.json();
-  console.log("res>>>>", result);
-  return result;
-}
+  try {
+    console.log(options);
+    const response = await axios.request(options);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("ERR>>>>>", error);
+  }
+};
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
   const basePricePerDay = 50; // Base rental price per day in dollars

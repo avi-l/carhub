@@ -12,7 +12,7 @@ export default function CustomFilter({ title, options }: CustomFilterProps) {
   const [selected, setSelected] = useState(options[0]); // State for storing the selected option
 
   const handleUpdateParams = (e: { title: string; value: string }) => {
-    const newPathName = updateSearchParams(title, e.value.toLowerCase());
+    const newPathName = updateSearchParams(title, e.value.toLocaleLowerCase());
 
     router.push(newPathName);
   };
