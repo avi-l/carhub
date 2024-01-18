@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { SearchManufacturer } from "./";
+import { SearchMake } from "./";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
@@ -15,24 +15,20 @@ const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
   </button>
 );
 const SearchBar = () => {
-  const [manufacturer, setManufacturer] = useState("");
+  const [make, setMake] = useState("");
   const [model, setModel] = useState("");
   const router = useRouter();
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (manufacturer === "" || model === "")
-      return alert("please fill in the search");
-    updateSearchParams(
-      model.toLocaleLowerCase(),
-      manufacturer.toLocaleLowerCase()
-    );
+    updateSearchParams(make.toLocaleLowerCase(), model.toLocaleLowerCase());
   };
-  const updateSearchParams = (manufacturer: string, model: string) => {
+  const updateSearchParams = (make: string, model: string) => {
     const searchParams = new URLSearchParams(window.location.search);
+
     if (model) searchParams.set("model", model);
     else searchParams.delete("model");
-    if (manufacturer) searchParams.set("manufacturer", manufacturer);
-    else searchParams.delete("manufacturer");
+    if (make) searchParams.set("make", make);
+    else searchParams.delete("make");
 
     const newPathName = `${
       window.location.pathname
@@ -44,10 +40,7 @@ const SearchBar = () => {
   return (
     <form className='searchbar' onSubmit={handleSearch}>
       <div className='searchbar__item'>
-        <SearchManufacturer
-          manufacturer={manufacturer}
-          setManufacturer={setManufacturer}
-        />
+        <SearchMake make={make} setMake={setMake} />
         <SearchButton otherClasses='sm:hidden' />
       </div>
       <div className='searchbar__item'>

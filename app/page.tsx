@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default async function Home({ searchParams }: HomeProps) {
   const allCars = await fetchCars({
-    manufacturer: searchParams.manufacturer || "",
+    make: searchParams.make || "",
     year: searchParams.year || 2023,
     fuel: searchParams.fuel || "",
     limit: searchParams.limit || 9,
@@ -42,7 +42,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 />
               </section>
             ) : (
-              <div className='home__error-container'>
+              <div className='home__cars-wrapper'>
                 <h2 className='text-black text-xl font-bold'>
                   Ooops, n cars:<p>{allCars?.message}</p>{" "}
                 </h2>

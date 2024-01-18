@@ -16,7 +16,7 @@ export interface CarProps {
 }
 
 export interface FilterProps {
-  manufacturer?: string;
+  make?: string;
   year?: number;
   model?: string;
   limit?: number;
@@ -62,7 +62,7 @@ export interface ShowMoreProps {
   isNext: boolean;
 }
 
-export interface SearchManufacturerProps {
-  manufacturer: string;
-  setManufacturer: (manufacturer: string) => void;
+export interface SearchMakeProps {
+  make: string;
+  setMake: (make: string) => void;
 }

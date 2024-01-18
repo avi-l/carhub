@@ -2,14 +2,14 @@ import { CarProps, FilterProps } from "@/types";
 import axios from "axios";
 
 export const fetchCars = async (filters: FilterProps) => {
-  const { manufacturer, year, model, limit, fuel } = filters || {};
+  const { make, year, model, limit, fuel } = filters || {};
 
   const options = {
     method: "GET",
     url: "https://cars-by-api-ninjas.p.rapidapi.com/v1/cars",
     params: {
       model,
-      make: manufacturer,
+      make: make,
       year: year || "",
       fuel_type: fuel,
       limit,
@@ -21,12 +21,11 @@ export const fetchCars = async (filters: FilterProps) => {
   };
 
   try {
-    console.log(options);
     const response = await axios.request(options);
-    console.log(response.data);
+
     return response.data;
   } catch (error) {
-    console.error("ERR>>>>>", error);
+    console.error(error);
   }
 };
 
